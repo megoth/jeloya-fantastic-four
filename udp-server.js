@@ -49,12 +49,12 @@ server.bind(3001);
 
 module.exports = {
     alpha: function () {
-        return filter(alphaSum, 20);
+        return alphaSum;
     },
     beta: function () {
-        return filter(betaSum, 20);
+        return betaSum;
     },
     gamma: function () {
-        return filter(gammaSum, 20);
+        return gammaSum;
     }
 };

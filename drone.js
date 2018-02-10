@@ -11,7 +11,8 @@ find('Mambo_614243', function (uuid) {
         console.log('connected!');
         rollingSpider.setup(function () {
             console.log('starting');
-            const parrot = new Parrot();
+            const parrot = new Parrot(rollingSpider);
+            parrot.navigate();
         });
     });
 });

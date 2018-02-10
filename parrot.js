@@ -18,7 +18,10 @@ module.exports = class Parrot {
         const beta = filter(udpServer.beta(), 20);
         const gamma = filter(udpServer.gamma(), 20);
         const alphaDiff = filter(alpha - this.alpha, 20);
-        if (alphaDiff > 0) {
+        const stop = udpServer.stop();
+        if (stop) {
+            this.rollingSpider.land(() => process.exit(0));
+        } else if (alphaDiff > 0) {
             console.log('turn left!', alphaDiff);
             this.rollingSpider.turnLeft({
                 speed: Math.abs(alphaDiff)

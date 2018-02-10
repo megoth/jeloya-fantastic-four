@@ -12,10 +12,12 @@ function unpack(msg, pos, threshold) {
     return filter(jspack.Unpack('!f', msg, pos)[0], threshold);
 }
 
-var alphaSum = 0;
-var betaSum = 0;
-var gammaSum = 0;
+let lastUpdate = Date.now();
+let alphaSum = 0;
+let betaSum = 0;
+let gammaSum = 0;
 server.on('message', (msg, rinfo) => {
+    lastUpdate = Date.now();
     // var buf = new Buffer(msg);
     const data = {
         acc: {
@@ -56,5 +58,8 @@ module.exports = {
     },
     gamma: function () {
         return gammaSum;
+    },
+    stop: function () {
+        return Date.now() - lastUpdate > 1000;
     }
 };

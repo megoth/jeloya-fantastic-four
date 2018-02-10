@@ -19,6 +19,7 @@ let gammaSum = 0;
 let light = 0;
 let up = false;
 let down = false;
+let recalibrate = false;
 server.on('message', (msg, rinfo) => {
     lastUpdate = Date.now();
     // var buf = new Buffer(msg);
@@ -38,8 +39,27 @@ server.on('message', (msg, rinfo) => {
             b: unpack(msg, 24, 0),
             g: unpack(msg, 28, 0)
         },
+        ori: {
+            x: unpack(msg, 36, 0),
+            y: unpack(msg, 40, 0),
+            z: unpack(msg, 44, 0)
+        },
         light: unpack(msg, 56, 0)
     };
+
+    // console.log(
+    //     // unpack(msg, 48, 0),
+    //     // unpack(msg, 52, 0),
+    //     // unpack(msg, 60, 0),
+    //     // unpack(msg, 64, 0),
+    //     // unpack(msg, 68, 0),
+    //     // unpack(msg, 72, 0),
+    //     // unpack(msg, 76, 0),
+    //     // unpack(msg, 80, 0),
+    //     // unpack(msg, 60, 0),
+    //     // unpack(msg, 60, 0),
+    //     // unpack(msg, 60, 0),
+    // );
 
     alphaSum += data.rot.a;
     betaSum += data.rot.b;
@@ -47,6 +67,8 @@ server.on('message', (msg, rinfo) => {
     light = data.light;
     up = data.acc.x || data.acc.y || data.acc.z;
     down = data.gra.x || data.gra.y || data.gra.z;
+    recalibrate = data.ori.x || data.ori.y || data.ori.z;
+
 });
 
 server.on('listening', () => {
@@ -82,5 +104,6 @@ module.exports = {
         return Date.now() - lastUpdate > 1000;
     },
     up: () => up,
-    down: () => down
+    down: () => down,
+    recalibrate: () => recalibrate
 };

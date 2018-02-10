@@ -1,5 +1,6 @@
 const udpServer = require('./udp-server');
 const filter = require('./filter');
+const player = require('play-sound')();
 
 module.exports = class Parrot {
     constructor(rollingSpider) {
@@ -14,6 +15,7 @@ module.exports = class Parrot {
         this.rollingSpider.startPing();
         this.rollingSpider.flatTrim();
         this.rollingSpider.takeOff();
+        setTimeout(() => player.play('audio/turretlaunched10.wav'), 3000);
         this.navigate();
     }
 
@@ -29,6 +31,7 @@ module.exports = class Parrot {
         const recalibrate = udpServer.recalibrate();
         if (stop) {
             console.log('shutting down!');
+            player.play('audio/turret_disabled_4.wav');
             this.rollingSpider.land();
             process.exit(0);
         } else if (recalibrate) {
@@ -39,6 +42,7 @@ module.exports = class Parrot {
             this.rollingSpider.flatTrim(() => this.updateStatus(turnLeftAndRight));
         } else if (light) {
             console.log('do a flip!');
+            player.play('audio/turret_pickup_4.wav');
             this.rollingSpider.frontFlip();
             setTimeout(() => this.updateStatus(turnLeftAndRight), 1000);
         } else if (up) {

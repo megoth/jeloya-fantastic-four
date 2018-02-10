@@ -2,12 +2,14 @@ const udpServer = require('./udp-server');
 const RollingSpider = require('rolling-spider');
 const find = require('./find');
 const Parrot = require('./parrot');
+const player = require('play-sound')();
 
 find('Mambo_614243', (uuid) => {
     const rollingSpider = new RollingSpider({
         uuid: uuid
     });
     rollingSpider.connect(() => {
+        player.play('audio/turret_deploy_4.wav');
         console.log('connected!');
         rollingSpider.setup(() => {
             udpServer.start(() => new Parrot(rollingSpider).start());

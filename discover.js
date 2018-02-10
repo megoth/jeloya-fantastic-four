@@ -1,13 +1,7 @@
-var noble = require('noble');
+const noble = require('noble');
 
-module.exports = function (device_name, callback) {
-    noble.startScanning();
+noble.startScanning();
 
-    noble.on('discover', function (peripheral) {
-        if (peripheral.advertisement.localName === device_name) {
-            callback(peripheral.uuid);
-        } else {
-            console.log('found another device: ', peripheral.advertisement.localName);
-        }
-    })
-};
+noble.on('discover', (peripheral) => {
+    console.log(`found device: ${peripheral.advertisement.localName} (${peripheral.address})`);
+});

@@ -6,7 +6,8 @@
   "dependencies": {
     "ar-drone": "^0.3.3",
     "express": "^4.16.2",
-    "noble": "^1.9.0"
+    "noble": "^1.9.0",
+    "parrot-minidrone": "^1.1.1"
   },
   "devDependencies": {
     "rolling-spider": "^1.7.0"

@@ -5,7 +5,9 @@
   "main": "discover.js",
   "dependencies": {
     "ar-drone": "^0.3.3",
+    "binary": "^0.3.0",
     "express": "^4.16.2",
+    "jspack": "0.0.4",
     "noble": "^1.9.0",
     "parrot-minidrone": "^1.1.1"
   },

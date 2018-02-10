@@ -1,6 +1,7 @@
-    const udpServer = require('./udp-server');
+const udpServer = require('./udp-server');
 const RollingSpider = require('rolling-spider');
 const find = require('./find');
+const Parrot = require('./parrot');
 
 find('Mambo_614243', function (uuid) {
     const rollingSpider = new RollingSpider({
@@ -10,12 +11,7 @@ find('Mambo_614243', function (uuid) {
         console.log('connected!');
         rollingSpider.setup(function () {
             console.log('starting');
-            rollingSpider.flatTrim();
-            rollingSpider.startPing();
-            rollingSpider.flatTrim();
-            rollingSpider.takeOff();
-
-            decideNavigation(rollingSpider);
+            const parrot = new Parrot();
         });
     });
 });

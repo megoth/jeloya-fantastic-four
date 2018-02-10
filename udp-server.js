@@ -17,6 +17,8 @@ let alphaSum = 0;
 let betaSum = 0;
 let gammaSum = 0;
 let light = 0;
+let up = false;
+let down = false;
 server.on('message', (msg, rinfo) => {
     lastUpdate = Date.now();
     // var buf = new Buffer(msg);
@@ -43,6 +45,8 @@ server.on('message', (msg, rinfo) => {
     betaSum += data.rot.b;
     gammaSum += data.rot.g;
     light = data.light;
+    up = data.acc.x || data.acc.y || data.acc.z;
+    down = data.gra.x || data.gra.y || data.gra.z;
 });
 
 server.on('listening', () => {
@@ -76,5 +80,7 @@ module.exports = {
     },
     stop: function () {
         return Date.now() - lastUpdate > 1000;
-    }
+    },
+    up: () => up,
+    down: () => down
 };

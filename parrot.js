@@ -24,14 +24,30 @@ module.exports = class Parrot {
         const alphaDiff = filter(alpha - this.alpha, 20);
         const stop = udpServer.stop();
         const light = udpServer.light();
-        if (light) {
-            console.log('do a flip!');
-            this.rollingSpider.frontFlip();
-            setTimeout(() => this.updateStatus(alpha), 1000);
-        } else if (stop) {
+        const up = udpServer.up();
+        const down = udpServer.down();
+        if (stop) {
             console.log('shutting down!');
             this.rollingSpider.land();
             process.exit(0);
+        } else if (light) {
+            console.log('do a flip!');
+            this.rollingSpider.frontFlip();
+            setTimeout(() => this.updateStatus(alpha), 1000);
+        } else if (up) {
+            console.log('go up!');
+            this.rollingSpider.up({
+                speed: 30,
+                steps: 10
+            }, () => this.updateStatus(alpha));
+            // setTimeout(() => this.updateStatus(alpha), 1000);
+        } else if (down) {
+            console.log('go down');
+            this.rollingSpider.down({
+                speed: 30,
+                steps: 10
+            },() => this.updateStatus(alpha));
+            // setTimeout(() => this.updateStatus(alpha), 1000);
         } else if (alphaDiff > 0) {
             console.log('turn left!', alphaDiff);
             this.rollingSpider.turnLeft({

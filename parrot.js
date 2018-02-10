@@ -62,23 +62,25 @@ module.exports = class Parrot {
             console.log('move backward!', beta);
             this.rollingSpider.backward({
                 speed: Math.abs(beta),
-                steps: Math.max(Math.abs(beta) * 2, 40)
+                steps: 10
             }, () => this.updateStatus(alpha));
         } else if (beta < 0) {
             console.log('move forward!', beta);
             this.rollingSpider.forward({
                 speed: Math.abs(beta),
-                steps: Math.max(Math.abs(beta) * 2, 40)
+                steps: 10
             }, () => this.updateStatus(alpha));
         } else if (gamma > 0) {
             console.log('tilt right', gamma);
             this.rollingSpider.right({
-                speed: Math.abs(gamma)
+                speed: Math.abs(gamma),
+                steps: 10
             }, () => this.updateStatus(alpha));
         } else if (gamma < 0) {
             console.log('tilt left', gamma);
             this.rollingSpider.left({
-                speed: Math.abs(gamma)
+                speed: Math.abs(gamma),
+                steps: 10
             }, () => this.updateStatus(alpha));
         } else {
             // console.log('doing nothing', alpha, beta, gamma);

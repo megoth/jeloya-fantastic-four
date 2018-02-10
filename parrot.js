@@ -7,10 +7,14 @@ module.exports = class Parrot {
         this.alpha = 0;
         this.beta = 0;
         this.gamma = 0;
+    }
+
+    start() {
         this.rollingSpider.flatTrim();
         this.rollingSpider.startPing();
         this.rollingSpider.flatTrim();
         this.rollingSpider.takeOff();
+        this.navigate();
     }
 
     navigate() {

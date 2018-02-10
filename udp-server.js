@@ -12,7 +12,7 @@ function unpack(msg, pos, threshold) {
     return filter(jspack.Unpack('!f', msg, pos)[0], threshold);
 }
 
-let lastUpdate = Date.now();
+let lastUpdate;
 let alphaSum = 0;
 let betaSum = 0;
 let gammaSum = 0;
@@ -58,6 +58,15 @@ module.exports = {
     },
     gamma: function () {
         return gammaSum;
+    },
+    start: function (callback) {
+        const intervalId = setInterval(() => {
+            if (!!lastUpdate) {
+                console.log('should start', lastUpdate);
+                callback();
+                clearInterval(intervalId);
+            }
+        }, 100);
     },
     stop: function () {
         return Date.now() - lastUpdate > 1000;

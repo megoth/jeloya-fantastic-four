@@ -20,7 +20,9 @@ module.exports = class Parrot {
         const alphaDiff = filter(alpha - this.alpha, 20);
         const stop = udpServer.stop();
         if (stop) {
-            this.rollingSpider.land(() => process.exit(0));
+            console.log('shutting down!');
+            this.rollingSpider.land();
+            process.exit(0);
         } else if (alphaDiff > 0) {
             console.log('turn left!', alphaDiff);
             this.rollingSpider.turnLeft({

@@ -4,6 +4,7 @@
   "description": "",
   "main": "discover.js",
   "dependencies": {
+    "express": "^4.16.2",
     "noble": "^1.9.0"
   },
   "devDependencies": {},

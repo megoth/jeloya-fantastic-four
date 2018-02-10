@@ -23,7 +23,12 @@ module.exports = class Parrot {
         const gamma = filter(udpServer.gamma(), 20);
         const alphaDiff = filter(alpha - this.alpha, 20);
         const stop = udpServer.stop();
-        if (stop) {
+        const light = udpServer.light();
+        if (light) {
+            console.log('do a flip!');
+            this.rollingSpider.frontFlip();
+            setTimeout(() => this.updateStatus(alpha), 1000);
+        } else if (stop) {
             console.log('shutting down!');
             this.rollingSpider.land();
             process.exit(0);

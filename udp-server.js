@@ -16,6 +16,7 @@ let lastUpdate;
 let alphaSum = 0;
 let betaSum = 0;
 let gammaSum = 0;
+let light = 0;
 server.on('message', (msg, rinfo) => {
     lastUpdate = Date.now();
     // var buf = new Buffer(msg);
@@ -34,12 +35,14 @@ server.on('message', (msg, rinfo) => {
             a: unpack(msg, 32, 0),
             b: unpack(msg, 24, 0),
             g: unpack(msg, 28, 0)
-        }
+        },
+        light: unpack(msg, 56, 0)
     };
 
     alphaSum += data.rot.a;
     betaSum += data.rot.b;
     gammaSum += data.rot.g;
+    light = data.light;
 });
 
 server.on('listening', () => {
@@ -58,6 +61,9 @@ module.exports = {
     },
     gamma: function () {
         return gammaSum;
+    },
+    light: function () {
+        return light > 0;
     },
     start: function (callback) {
         const intervalId = setInterval(() => {
